@@ -25,14 +25,14 @@ public class PlayerAimWeapon : MonoBehaviour {
         public Vector3 shellPosition;
     }
 
-    private PlayerLookAt playerLookAt;
+    //private PlayerLookAt playerLookAt;
     private Transform aimTransform;
     private Transform aimGunEndPointTransform;
     private Transform aimShellPositionTransform;
     private Animator aimAnimator;
 
     private void Awake() {
-        playerLookAt = GetComponent<PlayerLookAt>();
+       //playerLookAt = GetComponent<PlayerLookAt>();
         aimTransform = transform.Find("Aim");
         aimAnimator = aimTransform.GetComponent<Animator>();
         aimGunEndPointTransform = aimTransform.Find("GunEndPointPosition");
@@ -59,7 +59,7 @@ public class PlayerAimWeapon : MonoBehaviour {
         }
         aimTransform.localScale = aimLocalScale;
 
-        playerLookAt.SetLookAtPosition(mousePosition);
+       //playerLookAt.SetLookAtPosition(mousePosition);
     }
 
     private void HandleShooting() {

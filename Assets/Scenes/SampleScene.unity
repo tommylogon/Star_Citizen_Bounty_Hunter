@@ -379,7 +379,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &988595592
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -396,7 +396,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1219198681
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +431,7 @@ MonoBehaviour:
   shipTransform: {fileID: 988595590}
   forwardForce: 10
   strafeForce: 5
-  rotationSpeed: 2
+  rotationSpeed: 100
 --- !u!50 &1219198683
 Rigidbody2D:
   serializedVersion: 4
