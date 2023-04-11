@@ -4,9 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : MonoBehaviour, IDamageable
 {
-    
+    public enum Direction
+    {
+        Forward, Backward,Left,Right
+    }
+
+    private string targetTag;
+
     [SerializeField] private int hp = 100;
     [SerializeField] private int maxHp = 100;
 
@@ -26,61 +32,105 @@ public class Ship : MonoBehaviour
     [SerializeField] private float rotationSpeed = 156f;
     [SerializeField] private float velocity;
 
+    public event Action OnDeath;
+
     private bool isBraking = false;
 
     [SerializeField]
     private Weapon[] weaponsArray;
 
     private Rigidbody2D rb;
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         
+        
     }
 
+    public void Setup(GameObject controllerGameobject)
+    {
+        if(controllerGameobject.TryGetComponent(out IController controller)){
+            controller.OnBrake += OnShipBreak;
+            controller.OnMove += HandleMovement;
+            controller.OnShoot += HandleShooting;
+            controller.OnAim += AimShip;
+        }
+        switch
+            (controllerGameobject.tag)
+        {
+            case "Player":
+                targetTag = "Enemy";
+                break;
+            case "Enemy":
+                targetTag = "Player";
+                break;
+            default:
+                break;
+        }
+    }
 
-    public void HandleMovement()
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void UnsubscribeEvents()
+    {
+        if (TryGetComponent(out IController controller))
+        {
+            controller.OnBrake -= OnShipBreak;
+            controller.OnMove -= HandleMovement;
+            controller.OnShoot -= HandleShooting;
+            controller.OnAim -= AimShip;
+        }
+    }
+
+    public void HandleMovement(Direction direction)
     {
         if (!isBraking)
         {
 
-            if (Input.GetKey(KeyCode.W))
+            if (direction == Direction.Forward)
             {
                 rb.AddForce(transform.right * forwardForce);
             }
 
 
-            if (Input.GetKey(KeyCode.A))
+            if (direction == Direction.Left)
             {
                 rb.AddForce(transform.up * strafeForce);
             }
 
 
-            if (Input.GetKey(KeyCode.D))
+            if (direction == Direction.Right)
             {
                 rb.AddForce(-transform.up * strafeForce);
             }
 
 
-            if (Input.GetKey(KeyCode.S))
+            if (direction == Direction.Backward)
             {
                 rb.AddForce(-transform.right * strafeForce);
             }
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            isBraking = true;
-        }
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            isBraking = false;
-        }
+        
+    }
+
+    public void OnShipBreak(bool isBraking)
+    {
+        this.isBraking = isBraking;
     }
 
     private void FixedUpdate()
     {
+
         // Limit velocity
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
         velocity = rb.velocity.magnitude;
@@ -90,15 +140,20 @@ public class Ship : MonoBehaviour
         {
             rb.AddForce(-rb.velocity.normalized * brakingForce);
         }
+        if(velocity < 0.1)
+        {
+            rb.velocity = new Vector2(0,0);
+            isBraking = false;
+        }
         ShieldManager();
 
 
     }
 
-    public void AimShip()
+    public void AimShip(Vector3 aimPosition)
     {
-        Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
-        Vector3 aimDirection = (mousePosition - transform.position).normalized;
+        
+        Vector3 aimDirection = (aimPosition - transform.position).normalized;
 
         float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
@@ -107,22 +162,21 @@ public class Ship : MonoBehaviour
         float rotation = Mathf.Clamp(deltaAngle, -maxRotation, maxRotation);
         transform.Rotate(Vector3.forward * rotation);
     }
-    public void HandleShooting()
+    public void HandleShooting(Vector3 shootPosition)
     {
-        if (Input.GetMouseButton(0))
-        {
+        
             for (int i = 0; i < weaponsArray.Length; i++)
             {
                 if (weaponsArray[i] != null)
                 {
-                    weaponsArray[i].Shoot();
+                    weaponsArray[i].Shoot(shootPosition, targetTag);
                 }
                 
             }
-        }
+        
     }
 
-    internal void TakeDamage(int damage)
+    public void Damage(int damage)
     {
         if(shieldActive && shield > 0)
         {
@@ -135,7 +189,7 @@ public class Ship : MonoBehaviour
         {
             shieldActive = false;
         }
-        if(hp > 0 && !shieldActive )
+        if(hp > 0 && !shieldActive  )
         {
             hp -= damage;
             SoundManager.PlaySound(SoundManager.Sound.ShipHit);
@@ -143,6 +197,7 @@ public class Ship : MonoBehaviour
         if(hp <= 0)
         {
             SoundManager.PlaySound(SoundManager.Sound.ShipDeath);
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
     }
@@ -171,6 +226,14 @@ public class Ship : MonoBehaviour
                     shieldActive = true;
                 }
             }
+        }
+    }
+
+    public void RepairShipHp(int repairHp)
+    {
+        if (hp > 0 && hp < maxHp)
+        {
+            hp += repairHp;
         }
     }
 }

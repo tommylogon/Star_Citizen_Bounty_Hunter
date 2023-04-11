@@ -27,13 +27,12 @@ public static class SoundManager
     {
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.PlayOneShot(GetAudioClip(sound));
-        audioSource.volume = volume;
-        Object.Destroy(soundGameObject, 3f);
+        AudioClip clip = GetAudioClip(sound);
+        audioSource.PlayOneShot(clip,volume);
         if(GameHandler.instance != null)
         {
             MonoBehaviour monoBehaviour = GameHandler.instance;
-            monoBehaviour.StartCoroutine(DestroySoundAfterTime(soundGameObject, 2f));
+            monoBehaviour.StartCoroutine(DestroySoundAfterTime(soundGameObject, clip.length));
         }
         
     }

@@ -40,17 +40,17 @@ public class Weapon : MonoBehaviour
         
     }
 
-    public void Shoot()
+    public void Shoot(Vector3 shootPosition, string targetTar)
     {
         if(ammo > 0 && Time.time > nextFireTime)
         {
-            Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
-            Vector3 aimDirection = (mousePosition - transform.position).normalized;
+            
+            Vector3 aimDirection = (shootPosition - transform.position).normalized;
 
 
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             SoundManager.PlaySound(weaponSound);
-            bullet.GetComponent<Bullet>().Setup(aimDirection, this);
+            bullet.GetComponent<Bullet>().Setup(aimDirection, this, targetTar);
              
             nextFireTime = Time.time + 1f / fireRate;
         }
