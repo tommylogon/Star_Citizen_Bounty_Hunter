@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IController
     public Ship ship;
 
     public event Action OnDeath;
-    public event Action<Vector3> OnShoot;
+    public event Action OnShoot;
     public event Action<Ship.Direction> OnMove;
     public event Action<bool> OnBrake;
     public event Action<Vector3> OnAim;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour, IController
             shipTransform.tag = "Player";
             ship = PlayerShip;
             ship.Setup(gameObject);
-            OnDeath += PlayerController_OnDeath;
+            ship.OnDeath += PlayerController_OnDeath;
         }
         else
         {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour, IController
 
             if (Input.GetMouseButton(0))
             {
-                OnShoot?.Invoke(UtilsClass.GetMouseWorldPosition());
+                OnShoot?.Invoke();
             }
         }
 

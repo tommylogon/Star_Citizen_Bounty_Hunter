@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour, IController
     public Radar FireArea;
 
     public event Action OnDeath;
-    public event Action<Vector3> OnShoot;
+    public event Action OnShoot;
     public event Action<Ship.Direction> OnMove;
     public event Action<bool> OnBrake;
     public event Action<Vector3> OnAim;
@@ -28,7 +28,7 @@ public class AIController : MonoBehaviour, IController
     void Start()
     {
         tag = "Enemy";
-        spawnPosition = new Vector3(transform.position.x, transform.position.y);
+        spawnPosition = UnityEngine.Random.insideUnitCircle * 50;
                
         if (shipTransform.TryGetComponent(out Ship myShip))
         {
@@ -125,15 +125,19 @@ public class AIController : MonoBehaviour, IController
                     OnMove(Ship.Direction.Forward);
                 }
             }
-            else if(radarContact.tag == "Enemy")
+            else if(radarContact.tag == "Enemy" && radarContact.name != ship.name)
             {
                 if(rotation > 0)
                 {
-                   // Debug.Log(this.name + " is to the left of " + radarContact.name);
+                   Debug.Log(name + " is to the left of " + radarContact.name);
                 }
                 if(rotation < 0)
                 {
                    // Debug.Log(this.name + " is to the right of " + radarContact.name);
+                }
+                if(distance > minDistanceToTarget && (spawnPosition- radarContact.transform.position).magnitude < minDistanceToTarget)
+                {
+                    spawnPosition = UnityEngine.Random.insideUnitSphere * 50;
                 }
             }
         }
@@ -144,7 +148,7 @@ public class AIController : MonoBehaviour, IController
     {
         if(aiState == State.Alive &&  target.tag == "Player")
         {
-            OnShoot?.Invoke(target.transform.position);
+            OnShoot?.Invoke();
         }
     }
     public void UpdatePosition()

@@ -13,17 +13,8 @@ public class Ship : MonoBehaviour, IDamageable
 
     private string targetTag;
 
-    [SerializeField] private int hp = 100;
-    [SerializeField] private int maxHp = 100;
-
-
-    [SerializeField] private int shield = 100;
-    [SerializeField] private int maxShield = 100;
-    [SerializeField] private int shieldRegen = 1;
-    [SerializeField] private float shieldRegenDelay = 5f;
-    [SerializeField] private float shieldRegenTimer = 0f;
-    [SerializeField] private bool shieldActive = true;
-
+    [SerializeField] private Resource health;
+    [SerializeField] private Resource shield;
 
     [SerializeField] private float forwardForce = 9f;
     [SerializeField] private float strafeForce = 0.6f;
@@ -145,7 +136,7 @@ public class Ship : MonoBehaviour, IDamageable
             rb.velocity = new Vector2(0,0);
             isBraking = false;
         }
-        ShieldManager();
+        
 
 
     }
@@ -162,14 +153,14 @@ public class Ship : MonoBehaviour, IDamageable
         float rotation = Mathf.Clamp(deltaAngle, -maxRotation, maxRotation);
         transform.Rotate(Vector3.forward * rotation);
     }
-    public void HandleShooting(Vector3 shootPosition)
+    public void HandleShooting()
     {
         
             for (int i = 0; i < weaponsArray.Length; i++)
             {
                 if (weaponsArray[i] != null)
                 {
-                    weaponsArray[i].Shoot(shootPosition, targetTag);
+                    weaponsArray[i].Shoot(targetTag);
                 }
                 
             }
@@ -178,62 +169,45 @@ public class Ship : MonoBehaviour, IDamageable
 
     public void Damage(int damage)
     {
-        if(shieldActive && shield > 0)
+        if(shield != null && health != null)
         {
-            shield -= damage;
-            shieldRegenTimer = 0;
-            SoundManager.PlaySound(SoundManager.Sound.ShieldHit);
+            if (shield.IsActive() && shield.GetValue() > 0)
+            {
+                shield.UpdateValue(-damage);
+                shield.ResetRefillTimer();
+                SoundManager.PlaySound(SoundManager.Sound.ShieldHit);
 
+            }
+            if (shield.GetValue() <= 0)
+            {
+                shield.SetActive(false);
+            }
+            if (health.GetValue() > 0 && !shield.IsActive())
+            {
+                health.UpdateValue(-damage);
+                SoundManager.PlaySound(SoundManager.Sound.ShipHit);
+            }
+            if (health.GetValue() <= 0)
+            {
+                SoundManager.PlaySound(SoundManager.Sound.ShipDeath);
+                OnDeath?.Invoke();
+                Destroy(gameObject);
+            }
         }
-        if(shield <= 0)
+        else
         {
-            shieldActive = false;
+            Debug.Log(name + " is missing components.");
         }
-        if(hp > 0 && !shieldActive  )
-        {
-            hp -= damage;
-            SoundManager.PlaySound(SoundManager.Sound.ShipHit);
-        }
-        if(hp <= 0)
-        {
-            SoundManager.PlaySound(SoundManager.Sound.ShipDeath);
-            OnDeath?.Invoke();
-            Destroy(gameObject);
-        }
+
     }
 
-    public void ShieldManager()
-    {
-        if (shield < maxShield)
-        {
-            shieldRegenTimer += Time.deltaTime;
-
-
-            if (shield > maxShield)
-            {
-                shield = maxShield;
-            }
-            if (shieldActive && shieldRegenTimer > shieldRegenDelay)
-            {
-                shield += shieldRegen;
-
-            }
-            else if (!shieldActive)
-            {
-                shield += shieldRegen;
-                if (shield == maxShield)
-                {
-                    shieldActive = true;
-                }
-            }
-        }
-    }
+    
 
     public void RepairShipHp(int repairHp)
     {
-        if (hp > 0 && hp < maxHp)
+        if (health.IsValueBetweenMinAndMax())
         {
-            hp += repairHp;
+            health.UpdateValue(repairHp);
         }
     }
 }

@@ -11,48 +11,67 @@ public class Weapon : MonoBehaviour
     enum DamageType
     {
         Ballistic, 
-        Energy
+        Energy,
+        Explosive
     }
 
     public int damage;
     public float lifeTime;
     public int size;
-    public int ammo;
+    public Resource ammo;
     public int fireRate;
     public float nextFireTime;
     public bool recharges;
     public int rechargeRate;
     public int bulletSpeed;
+    public string targetTag;
+    [SerializeField] private Radar autoAimArea;
+    [SerializeField] GameObject target;
 
     public GameObject bulletPrefab;
 
     public SoundManager.Sound weaponSound;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
+        autoAimArea.OnRadarStay += AutoAimArea_OnRadarStay;
+        autoAimArea.OnRadarExit += AutoAimArea_OnRadarExit;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AutoAimArea_OnRadarExit(Collider2D obj)
     {
-        
+        target = null;
     }
 
-    public void Shoot(Vector3 shootPosition, string targetTar)
+    private void AutoAimArea_OnRadarStay(Collider2D racarContact)
     {
-        if(ammo > 0 && Time.time > nextFireTime)
+        if(racarContact.tag == targetTag)
         {
+            target = racarContact.gameObject;
+
+        }
+    }
+
+
+    public void Shoot(string newTargetTag)
+    {
+        targetTag = newTargetTag; 
+        if(ammo.GetValue() > 0 && Time.time > nextFireTime)
+        {
+            Vector3 aimDirection = transform.right;
+            if (target != null)
+            {
+                 aimDirection = (target.transform.position - transform.position).normalized;
+            }
             
-            Vector3 aimDirection = (shootPosition - transform.position).normalized;
-
-
+           
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             SoundManager.PlaySound(weaponSound);
-            bullet.GetComponent<Bullet>().Setup(aimDirection, this, targetTar);
+            bullet.GetComponent<Bullet>().Setup(aimDirection, this, targetTag);
              
             nextFireTime = Time.time + 1f / fireRate;
+            ammo.UpdateValue(-1);
+            ammo.ResetRefillTimer();
         }
         
     }

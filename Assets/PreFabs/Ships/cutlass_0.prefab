@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 564236056284072491}
   - component: {fileID: 564236056284072487}
   - component: {fileID: 3897573998507672279}
+  - component: {fileID: -5188927349251216935}
+  - component: {fileID: -8260813652809215432}
   m_Layer: 0
   m_Name: cutlass_0
   m_TagString: Enemy
@@ -126,14 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b6baf02d42fae4392db6bbfb103a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 321
-  maxHp: 321
-  shield: 900
-  maxShield: 900
-  shieldRegen: 1
-  shieldRegenDelay: 5
-  shieldRegenTimer: 0
-  shieldActive: 1
+  health: {fileID: -5188927349251216935}
+  shield: {fileID: -8260813652809215432}
   forwardForce: 2.8
   strafeForce: 0.51
   brakingForce: 2.2
@@ -368,6 +364,50 @@ PolygonCollider2D:
       - {x: -3.8895543, y: -6.7851024}
       - {x: -3.0676365, y: -6.7851024}
       - {x: -2.4255133, y: -6.7080474}
+--- !u!114 &-5188927349251216935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564236056284072494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  currentValue: 312
+  maxValue: 312
+  minValue: 0
+  regenDelay: 0
+  regenTimer: 0
+  regenAmount: 0
+  active: 1
+  canDeactivate: 0
+  recharging: 0
+--- !u!114 &-8260813652809215432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564236056284072494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  currentValue: 900
+  maxValue: 900
+  minValue: 0
+  regenDelay: 5
+  regenTimer: 0
+  regenAmount: 1
+  active: 1
+  canDeactivate: 0
+  recharging: 1
 --- !u!1 &4797958080415625013
 GameObject:
   m_ObjectHideFlags: 0

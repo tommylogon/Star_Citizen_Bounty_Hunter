@@ -145,6 +145,8 @@ GameObject:
   - component: {fileID: 7718231205932403967}
   - component: {fileID: 7718231205932403964}
   - component: {fileID: 988595595}
+  - component: {fileID: -5859289115744102178}
+  - component: {fileID: -4287424981410429306}
   m_Layer: 0
   m_Name: Aurora
   m_TagString: Untagged
@@ -255,14 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b6baf02d42fae4392db6bbfb103a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 62
-  maxHp: 62
-  shield: 100
-  maxShield: 100
-  shieldRegen: 1
-  shieldRegenDelay: 5
-  shieldRegenTimer: 0
-  shieldActive: 1
+  health: {fileID: -5859289115744102178}
+  shield: {fileID: -4287424981410429306}
   forwardForce: 9
   strafeForce: 5.6
   brakingForce: 5.2
@@ -504,6 +500,50 @@ PolygonCollider2D:
       - {x: 0.94493914, y: -2.150161}
       - {x: 1.0015223, y: -1.9068533}
       - {x: 1.0637639, y: -1.6635456}
+--- !u!114 &-5859289115744102178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718231205932403955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  currentValue: 62
+  maxValue: 52
+  minValue: 0
+  regenDelay: 0
+  regenTimer: 0
+  regenAmount: 0
+  active: 1
+  canDeactivate: 0
+  recharging: 0
+--- !u!114 &-4287424981410429306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718231205932403955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  currentValue: 300
+  maxValue: 300
+  minValue: 0
+  regenDelay: 5
+  regenTimer: 0
+  regenAmount: 1
+  active: 1
+  canDeactivate: 0
+  recharging: 1
 --- !u!1001 &276838624916065501
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f368256254a028747a61939ed56e0bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderArea: {fileID: 0}
+  colliderArea: {fileID: 8285135662690729540}
 --- !u!1 &8285135664091240281
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipTransform: {fileID: 0}
+  spawnPosition: {x: 0, y: 0, z: 0}
   ship: {fileID: 0}
   radar: {fileID: 8285135662690729541}
   FireArea: {fileID: 8285135664247742543}

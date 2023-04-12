@@ -144,6 +144,8 @@ GameObject:
   - component: {fileID: 664827376758613186}
   - component: {fileID: 664827376758613197}
   - component: {fileID: 5949021477476979782}
+  - component: {fileID: 3309672587556675456}
+  - component: {fileID: 3374404577906268913}
   m_Layer: 0
   m_Name: m50_0
   m_TagString: PlayerShip
@@ -414,14 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b6baf02d42fae4392db6bbfb103a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 52
-  maxHp: 52
-  shield: 150000
-  maxShield: 150
-  shieldRegen: 1
-  shieldRegenDelay: 5
-  shieldRegenTimer: 0
-  shieldActive: 1
+  health: {fileID: 3309672587556675456}
+  shield: {fileID: 3374404577906268913}
   forwardForce: 7
   strafeForce: 5
   brakingForce: 6
@@ -431,6 +427,50 @@ MonoBehaviour:
   weaponsArray:
   - {fileID: 8817618295580565548}
   - {fileID: 7327667653951701850}
+--- !u!114 &3309672587556675456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664827376758613196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  currentValue: 52
+  maxValue: 52
+  minValue: 0
+  regenDelay: 0
+  regenTimer: 0
+  regenAmount: 0
+  active: 1
+  canDeactivate: 0
+  recharging: 0
+--- !u!114 &3374404577906268913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664827376758613196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c529da581bcc3b149ae290c10d068d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  currentValue: 300
+  maxValue: 300
+  minValue: 0
+  regenDelay: 5
+  regenTimer: 0
+  regenAmount: 1
+  active: 1
+  canDeactivate: 0
+  recharging: 1
 --- !u!1001 &2370569228193389266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,8 +615,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4995880461098621320, guid: 7a75569dbd0282b409582bb808cc06b1, type: 3}
+      propertyPath: autoAimArea
+      value: 
+      objectReference: {fileID: 1054345529785569446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a75569dbd0282b409582bb808cc06b1, type: 3}
+--- !u!114 &1054345529785569446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3579058217498077442, guid: 7a75569dbd0282b409582bb808cc06b1, type: 3}
+  m_PrefabInstance: {fileID: 4542610094319843748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f368256254a028747a61939ed56e0bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1243788980664920413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3334991033101078777, guid: 7a75569dbd0282b409582bb808cc06b1, type: 3}
