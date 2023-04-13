@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3334991033101078777}
   - component: {fileID: 2760399479200252518}
   - component: {fileID: 4995880461098621320}
-  - component: {fileID: 4841946848133980177}
-  - component: {fileID: 2324870601402670098}
-  - component: {fileID: 7968723832574648083}
+  - component: {fileID: -3309078413104327340}
+  - component: {fileID: 6157924647079510323}
+  - component: {fileID: 3579058217498077442}
   m_Layer: 0
-  m_Name: LaserRepeater 2
+  m_Name: LaserCanon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,21 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ca5b00a22908c4db7f37d2334da6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 11
   lifeTime: 3
-  size: 2
-  ammo: {fileID: 4841946848133980177}
-  fireRate: 10
+  size: 1
+  ammo: {fileID: -3309078413104327340}
+  fireRate: 3
   nextFireTime: 0
   recharges: 1
   rechargeRate: 5
-  bulletSpeed: 50
+  bulletSpeed: 30
   targetTag: 
-  autoAimArea: {fileID: 7968723832574648083}
+  autoAimArea: {fileID: 3579058217498077442}
   target: {fileID: 0}
   bulletPrefab: {fileID: 6158023816423202634, guid: c0fd351a54757b745af928d1d8a06f3a, type: 3}
-  weaponSound: 9
---- !u!114 &4841946848133980177
+  weaponSound: 11
+--- !u!114 &-3309078413104327340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,16 +127,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  currentValue: 24
-  maxValue: 24
+  currentValue: 20
+  maxValue: 20
   minValue: 0
-  regenDelay: 4
+  regenDelay: 2
   regenTimer: 0
   regenAmount: 1
   active: 1
   canDeactivate: 0
   canRecharge: 1
---- !u!60 &2324870601402670098
+--- !u!60 &6157924647079510323
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,7 @@ PolygonCollider2D:
     - - {x: 100, y: 5}
       - {x: 100, y: -5}
       - {x: 0, y: 0}
---- !u!114 &7968723832574648083
+--- !u!114 &3579058217498077442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f368256254a028747a61939ed56e0bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderArea: {fileID: 2324870601402670098}
+  colliderArea: {fileID: 6157924647079510323}

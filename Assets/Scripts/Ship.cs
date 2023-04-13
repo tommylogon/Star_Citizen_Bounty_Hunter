@@ -23,6 +23,9 @@ public class Ship : MonoBehaviour, IDamageable
     [SerializeField] private float rotationSpeed = 156f;
     [SerializeField] private float velocity;
 
+    [SerializeField] private bool staticPosition;
+    [SerializeField] private Transform PositionTransform;
+
     public event Action OnDeath;
 
     private bool isBraking = false;
