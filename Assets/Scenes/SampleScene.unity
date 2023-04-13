@@ -1169,7 +1169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8285135664091240281, guid: 10ebcba83890b7d4ebd365637d4497e1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8285135664091240282, guid: 10ebcba83890b7d4ebd365637d4497e1, type: 3}
       propertyPath: m_RootOrder
@@ -1895,6 +1895,22 @@ PrefabInstance:
     - target: {fileID: 664827376758613196, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
       propertyPath: m_Name
       value: m50_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3374404577906268913, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
+      propertyPath: maxValue
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3374404577906268913, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
+      propertyPath: canRecharge
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3374404577906268913, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
+      propertyPath: regenAmount
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3374404577906268913, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
+      propertyPath: currentValue
+      value: 30000
       objectReference: {fileID: 0}
     - target: {fileID: 5949021477476979782, guid: 07d2ff5a3dd721d4a9ef98331e53a467, type: 3}
       propertyPath: brakingForce

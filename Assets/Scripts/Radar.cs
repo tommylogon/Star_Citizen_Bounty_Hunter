@@ -38,8 +38,12 @@ public class Radar : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        OnRadarStay?.Invoke(other);
+        if(!other.TryGetComponent(out Weapon isWeapon))
+        {
+            OnRadarStay?.Invoke(other);
+
+            //UtilsClass.DebugDrawCircle(other.gameObject.transform.position, 1f, Color.red, 0.1f, 5);
+        }
         
-        UtilsClass.DebugDrawCircle(other.gameObject.transform.position, 1f, Color.red, 0.1f, 5);
     }
 }

@@ -122,7 +122,7 @@ public class Ship : MonoBehaviour, IDamageable
         this.isBraking = isBraking;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
 
         // Limit velocity
