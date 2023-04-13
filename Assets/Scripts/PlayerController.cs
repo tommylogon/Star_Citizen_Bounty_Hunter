@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour, IController
     public event Action OnShoot;
     public event Action<Ship.Direction> OnMove;
     public event Action<bool> OnBrake;
-    public event Action<Vector3> OnAim;
+    public event Action<Vector3, Vector3> OnAim;
+    
 
     public State playerState;
 
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour, IController
         {
             Debug.Log("Player does not have a ship");
         }
-
+        
         
     }
 
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour, IController
 
             HandleInput();
 
-            OnAim?.Invoke(UtilsClass.GetMouseWorldPosition());
+            OnAim?.Invoke(UtilsClass.GetMouseWorldPosition(), new Vector3(0,0,0));
 
             UpdatePosition();
 
@@ -64,6 +65,8 @@ public class PlayerController : MonoBehaviour, IController
                 OnShoot?.Invoke();
             }
         }
+
+
 
     }
 

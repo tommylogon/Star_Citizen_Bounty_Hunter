@@ -58,16 +58,22 @@ public class Weapon : MonoBehaviour
         targetTag = newTargetTag; 
         if(ammo.GetValue() > 0 && Time.time > nextFireTime)
         {
-            Vector3 aimDirection = transform.right;
+            Vector3 predictedAimDirection = transform.right;
             if (target != null)
             {
-                 aimDirection = (target.transform.position - transform.position).normalized;
+
+                Vector3 targetVeloicty = target.GetComponent<Rigidbody2D>().velocity;
+                Vector3 predictedTargetPosition = target.transform.position + targetVeloicty * Time.deltaTime*30;
+
+                predictedAimDirection = (predictedTargetPosition - transform.position).normalized;
+
+
             }
             
            
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             SoundManager.PlaySound(weaponSound);
-            bullet.GetComponent<Bullet>().Setup(aimDirection, this, targetTag);
+            bullet.GetComponent<Bullet>().Setup(predictedAimDirection, this, targetTag);
              
             nextFireTime = Time.time + 1f / fireRate;
             ammo.UpdateValue(-1);

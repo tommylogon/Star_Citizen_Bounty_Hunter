@@ -144,12 +144,16 @@ public class Ship : MonoBehaviour, IDamageable
 
     }
 
-    public void AimShip(Vector3 aimPosition)
+    public void AimShip(Vector3 aimPosition, Vector3 targetVelocity)
     {
         
-        Vector3 aimDirection = (aimPosition - transform.position).normalized;
+        
 
-        float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        Vector3 predictedTargetPosition = aimPosition + targetVelocity * Time.deltaTime*10;
+
+        Vector3 predictedAimDirection = (predictedTargetPosition - transform.position).normalized;
+
+        float targetAngle = Mathf.Atan2(predictedAimDirection.y, predictedAimDirection.x) * Mathf.Rad2Deg;
         float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
         float maxRotation = rotationSpeed * Time.deltaTime;
 

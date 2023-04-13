@@ -17,7 +17,7 @@ public class AIController : MonoBehaviour, IController
     public event Action OnShoot;
     public event Action<Ship.Direction> OnMove;
     public event Action<bool> OnBrake;
-    public event Action<Vector3> OnAim;
+    public event Action<Vector3, Vector3> OnAim;
 
     public int minDistanceToTarget = 10, maxDistanceToTarget = 20;
 
@@ -82,7 +82,7 @@ public class AIController : MonoBehaviour, IController
             float distance = (transform.position - spawnPosition).magnitude;
             if(distance > minDistanceToTarget) 
             {
-                OnAim?.Invoke(spawnPosition);
+                OnAim?.Invoke(spawnPosition, new Vector3(0,0,0));
                 OnMove?.Invoke(Ship.Direction.Forward);
             }
             else
@@ -101,7 +101,7 @@ public class AIController : MonoBehaviour, IController
         {
             hasTarget = true;
 
-            OnAim?.Invoke(radarContact.transform.position);
+            OnAim?.Invoke(radarContact.transform.position, radarContact.attachedRigidbody.velocity);
         }
     }
 

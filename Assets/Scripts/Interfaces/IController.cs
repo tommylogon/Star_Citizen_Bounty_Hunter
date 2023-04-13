@@ -9,7 +9,7 @@ public interface IController
     public event Action OnShoot;
     public event Action<Ship.Direction> OnMove;
     public event Action<bool> OnBrake;
-    public event Action<Vector3> OnAim;
+    public event Action<Vector3, Vector3> OnAim;
 }
 public enum State
 {
