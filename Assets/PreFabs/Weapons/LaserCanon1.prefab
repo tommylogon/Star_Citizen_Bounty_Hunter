@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3309078413104327340}
   - component: {fileID: 6157924647079510323}
   - component: {fileID: 3579058217498077442}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LaserCanon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

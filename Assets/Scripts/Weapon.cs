@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public void Shoot(string newTargetTag)
+    public void Shoot(string newTargetTag, Ship shooter)
     {
         targetTag = newTargetTag; 
         if(ammo.GetValue() > 0 && Time.time > nextFireTime)
@@ -73,7 +73,7 @@ public class Weapon : MonoBehaviour
            
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             SoundManager.PlaySound(weaponSound);
-            bullet.GetComponent<Bullet>().Setup(predictedAimDirection, this, targetTag);
+            bullet.GetComponent<Bullet>().Setup(predictedAimDirection, this, targetTag, shooter);
              
             nextFireTime = Time.time + 1f / fireRate;
             ammo.UpdateValue(-1);

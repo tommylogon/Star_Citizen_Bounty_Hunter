@@ -129,7 +129,7 @@ public class AIController : MonoBehaviour, IController
             {
                 if(rotation > 0)
                 {
-                   Debug.Log(name + " is to the left of " + radarContact.name);
+                   //Debug.Log(name + " is to the left of " + radarContact.name);
                 }
                 if(rotation < 0)
                 {

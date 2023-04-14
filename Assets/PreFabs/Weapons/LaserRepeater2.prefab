@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4841946848133980177}
   - component: {fileID: 2324870601402670098}
   - component: {fileID: 7968723832574648083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LaserRepeater2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

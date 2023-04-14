@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7112871180543202083}
   - component: {fileID: 2196615127136035717}
   - component: {fileID: 2198117900795478577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BalisticRepeater2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   regenAmount: 1
   active: 1
   canDeactivate: 0
-  recharging: 0
+  canRecharge: 0
 --- !u!60 &2196615127136035717
 PolygonCollider2D:
   m_ObjectHideFlags: 0

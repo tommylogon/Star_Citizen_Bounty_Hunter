@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8285135662690729543}
   - component: {fileID: 8285135662690729540}
   - component: {fileID: 8285135662690729541}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 8285135664091240282}
   - component: {fileID: 8285135664091240283}
   - component: {fileID: 8285135664091240280}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8285135664247742540}
   - component: {fileID: 8285135664247742541}
   - component: {fileID: 8285135664247742543}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TargetArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

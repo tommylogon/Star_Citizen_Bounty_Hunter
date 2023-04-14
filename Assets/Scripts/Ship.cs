@@ -167,7 +167,7 @@ public class Ship : MonoBehaviour, IDamageable
             {
                 if (weaponsArray[i] != null)
                 {
-                    weaponsArray[i].Shoot(targetTag);
+                    weaponsArray[i].Shoot(targetTag, this);
                 }
                 
             }
